@@ -140,7 +140,7 @@ class Tool(abc.ABC):
 
     async def get_confirmation(
         self, invocation: ToolInvocation
-    ) -> ToolInvocation | None:
+    ) -> ToolConfirmation | None:
         if not self.is_mutating(invocation.params):
             return None
 

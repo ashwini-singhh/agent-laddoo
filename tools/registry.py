@@ -3,13 +3,15 @@ from tools.base import Tool, ToolResult, ToolInvocation
 import logging
 from typing import Any
 from tools.builtin import get_all_builtin_tools
+from config.config import Config
 
 logger = logging.getLogger(__name__)
 
 
 class ToolRegistry:
-    def __init__(self):
+    def __init__(self , config : Config):
         self._tools: dict[str, Tool] = {}
+        self.config = config
 
     def register(self, tool: Tool) -> None:
         if tool.name in self._tools:
@@ -87,8 +89,8 @@ class ToolRegistry:
         return f"ToolRegistry(tools={list(self._tools.keys())})"
 
 
-def create_default_registry() -> ToolRegistry:
-    registry = ToolRegistry()
+def create_default_registry(config : Config) -> ToolRegistry:
+    registry = ToolRegistry(config)
     for tool_class in get_all_builtin_tools():
-        registry.register(tool_class())
+        registry.register(tool_class(config))
     return registry

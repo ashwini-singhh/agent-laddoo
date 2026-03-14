@@ -5,7 +5,7 @@ from typing import Any
 from pydantic import BaseModel, ValidationError
 from dataclasses import dataclass, field
 from pathlib import Path
-
+from config.config import Config
 
 class ToolKind(str, Enum):
     READ = "read"
@@ -103,8 +103,8 @@ class Tool(abc.ABC):
     description: str = "Base tool"
     kind: ToolKind = ToolKind.READ
 
-    def __init__(self) -> None:
-        pass
+    def __init__(self, config: Config) -> None:
+        self.config = config
 
     @property
     def schema(self) -> dict[str, Any] | type["BaseModel"]:

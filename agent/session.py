@@ -9,7 +9,7 @@ class Session:
     def __init__(self, config: Config):
         self.config = config
         self.context_manager = ContextManager(self.config)
-        self.tool_registry = create_default_registry()
+        self.tool_registry = create_default_registry(self.config)
         self.client = LLMClient(
             config = config
         )

@@ -55,7 +55,7 @@ class ShellTool(Tool):
         if params.cwd:
             cwd = Path(params.cwd)
             if not cwd.is_absolute():
-                cwd = resolve_path(invocation.cwd, params.cwd)
+                cwd = invocation.cwd / cwd
         else:
             cwd = invocation.cwd
 

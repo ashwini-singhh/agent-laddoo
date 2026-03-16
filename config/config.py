@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 from pathlib import Path
 import os
+from typing import Any
 
 class ModelConfig(BaseModel):
     name: str = "stepfun/step-3.5-flash:free"
@@ -20,7 +21,7 @@ class Config(BaseModel):
     model: ModelConfig = Field(default_factory=ModelConfig)
     cwd: Path = Field(default_factory=Path.cwd)
     shell_environment: ShellEnvironmentPolicy = Field(default_factory=ShellEnvironmentPolicy)
-
+    allowed_tools: list[str] | None = Field(default=None, description= 'If set, only these tools will be available to the agent')
     max_turns: int = 100
 
     developer_instructions: str | None = None
@@ -56,3 +57,6 @@ class Config(BaseModel):
             errors.append(f"Working directory does not exists: {self.cwd}")
         
         return errors
+
+    def to_dict(self) -> dict[str, Any]:
+        return self.model_dump(mode="json")

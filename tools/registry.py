@@ -4,6 +4,7 @@ import logging
 from typing import Any
 from tools.builtin import get_all_builtin_tools
 from config.config import Config
+from tools.subagents import get_default_subagent_definitions, SubagentTool
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +36,9 @@ class ToolRegistry:
         tools: list[Tool] = []
         for tool in self._tools.values():
             tools.append(tool)
+        if self.config.allowed_tools:
+            allowed_tools = set(self.config.allowed_tools)
+            tools = [tool for tool in tools if tool.name in allowed_tools]
         return tools
 
     def get_schemas(self) -> list[dict[str, Any]]:
@@ -93,4 +97,7 @@ def create_default_registry(config : Config) -> ToolRegistry:
     registry = ToolRegistry(config)
     for tool_class in get_all_builtin_tools():
         registry.register(tool_class(config))
+
+    for subagent_definition in get_default_subagent_definitions():
+        registry.register(SubagentTool(config, subagent_definition))
     return registry

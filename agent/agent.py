@@ -98,6 +98,7 @@ class Agent:
             for tool_result in tool_call_results:
                 self.session.context_manager.add_tool_result(tool_result.tool_call_id, tool_result.content)
 
+        yield AgentEvent.agent_error(f"Maximum turns({self.config.max_turns}) exceeded")
     async def __aenter__(self) -> Agent:
         return self
 

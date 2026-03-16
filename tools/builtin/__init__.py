@@ -2,9 +2,39 @@ from tools.builtin.read_file import ReadFileTool
 from tools.builtin.write_file import WriteFileTool
 from tools.builtin.edit_file import EditFileTool
 from tools.builtin.shell import ShellTool
-
-__all__ = ["ReadFileTool", "WriteFileTool", "EditFileTool", "ShellTool"]
+from tools.builtin.list_dir import ListDirTool
+from tools.builtin.grep import GrepTool
+from tools.builtin.glob import GlobTool
+from tools.builtin.web_search import WebSearchTool
+from tools.builtin.web_fetch import WebFetchTool
+from tools.builtin.todo import TodosTool
+from tools.builtin.memory import MemoryTool
+__all__ = [
+    "ReadFileTool", 
+    "WriteFileTool", 
+    "EditFileTool", 
+    "ShellTool", 
+    "ListDirTool" , 
+    "GrepTool", 
+    "GlobTool", 
+    "WebSearchTool",
+    "WebFetchTool",
+    "TodosTool",
+    "MemoryTool"
+    ]
 
 
 def get_all_builtin_tools() -> list[type]:
-    return [ReadFileTool, WriteFileTool, EditFileTool, ShellTool]
+    return [
+        ReadFileTool, 
+        WriteFileTool, 
+        EditFileTool, 
+        ShellTool , 
+        ListDirTool , 
+        GrepTool , 
+        GlobTool , 
+        WebSearchTool,
+        WebFetchTool,
+        TodosTool,
+        MemoryTool
+        ]

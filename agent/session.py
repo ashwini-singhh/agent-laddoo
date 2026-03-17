@@ -5,6 +5,7 @@ from client.llm_client import LLMClient
 import uuid
 from datetime import datetime
 from config.loader import get_data_dir
+from tools.discovery import ToolDiscoveryManager
 
 class Session:
     def __init__(self, config: Config):
@@ -19,6 +20,8 @@ class Session:
         self.client = LLMClient(
             config = config
         )
+        self.discovery_manager = ToolDiscoveryManager(config, self.tool_registry)
+        self.discovery_manager.discover_all()
         self.session_id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.update_at = datetime.now()

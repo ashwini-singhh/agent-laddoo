@@ -146,10 +146,7 @@ def main(prompt: str | None,
         sys.exit(1)
 
     cli = CLI(config)
-    # messages = [{
-    #     'role': 'user',
-    #     'content': prompt
-    # }]
+
     if prompt:
         result = asyncio.run(cli.run_single(prompt))
         if result is None:

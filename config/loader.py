@@ -2,7 +2,7 @@ from pathlib import Path
 from config.config import Config
 from utils.errors import ConfigError
 
-from platformdirs import user_config_dir
+from platformdirs import user_config_dir,user_data_dir
 import tomli
 import logging 
 from typing import Any
@@ -14,6 +14,9 @@ CONFIG_FILE_NAME = 'config.toml'
 AGENT_MD_FILE_NAME = 'agent.md'
 def get_config_dir() -> Path:
     return Path( user_config_dir('ai-agent'))
+
+def get_data_dir() -> Path:
+    return Path(user_data_dir("ai-agent"))
 
 def get_system_config_path() -> Path:
     return get_config_dir() / CONFIG_FILE_NAME
